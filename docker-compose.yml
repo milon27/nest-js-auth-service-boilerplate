@@ -1,0 +1,20 @@
+version: "3.4"
+
+services:
+    db:
+        container_name: mariadb
+        image: mariadb:10.7
+        restart: always
+        environment:
+            - MYSQL_USER=milon27
+            - MYSQL_PASSWORD=myPassWord
+            - MYSQL_ROOT_PASSWORD=myPassWord
+            - MYSQL_DATABASE=test
+        ports:
+            - "3306:3306"
+        volumes:
+            - mysql_vol:/var/lib/mysql
+
+#volumes(root label)
+volumes:
+    mysql_vol: {}
