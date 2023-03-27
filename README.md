@@ -8,7 +8,7 @@
 ```bash
 
 pnpm i
-# update .env.sample to .env then update db connection string (DATABASE_URL)  and RABBIT_MQ_URI
+# update .env.sample to .env then update db connection string (DATABASE_URL)
 npx prisma migrate deploy
 npx prisma generate
 
@@ -50,6 +50,11 @@ npm run dev # auth api will run on port 4000
     -   class: `class MyClass{}`
     -   interface: `interface IMyInterface{}` should start with capital `I`
     -   function: `function myFunction(){}` should be in camelCase
+
+### TODO
+
+-   setup swegger for api doc, also maintain postman
+-   setup a prisma exception filter globally
 
 ---
 
