@@ -4,6 +4,8 @@ import { ClientsModule, Transport } from "@nestjs/microservices"
 import { IRMQOption } from "./interface/rmq-option.interface"
 import { RmqService } from "./rmq.service"
 
+// todo: not completed yet
+
 @Global()
 @Module({
     providers: [RmqService],

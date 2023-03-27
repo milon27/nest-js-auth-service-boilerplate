@@ -11,12 +11,12 @@ export class ProtectedGuard implements CanActivate {
     async canActivate(context: ExecutionContext): Promise<boolean> {
         try {
             const req = context.switchToHttp().getRequest() as Request
-            const token = req.headers.authorization.split(" ")[1] || req.cookies[ACCESS_TOKEN]
+            const token = req.headers?.authorization?.split(" ")[1] || req.cookies[ACCESS_TOKEN]
             const payload = this.authService.verifyJwtToken(token)
-            req.user = { id: "a" } as any
+            req.user = payload
             return true
         } catch (error) {
-            console.log("auth.guard", error)
+            console.log("ProtectedGuard: ", error.message)
             return false
         }
     }
