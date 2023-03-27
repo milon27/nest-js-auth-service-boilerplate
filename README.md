@@ -4,6 +4,8 @@
 
 -   make sure you have [pnpm](https://pnpm.io/) install on your system as node package manager
 -   run on development
+    -   use mysql db from docker (you should have docker install on your machine) `docker compose up -d `
+    -   install all dependencies and run the app
 
 ```bash
 
