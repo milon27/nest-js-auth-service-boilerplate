@@ -9,7 +9,7 @@ export class LoginController {
     @Post()
     login(@Req() req: Request, @Res() res: Response) {
         // set cookie
-        if (req?.user !== undefined) res.cookie(ACCESS_TOKEN, req.user[ACCESS_TOKEN])
-        return "{ ...req.user }"
+        res.cookie(ACCESS_TOKEN, req.user[ACCESS_TOKEN])
+        return { ...req.user, ACCESS_TOKEN: req.user[ACCESS_TOKEN] }
     }
 }
