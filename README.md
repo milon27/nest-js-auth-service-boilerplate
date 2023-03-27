@@ -3,6 +3,29 @@
 ## How to run
 
 -   make sure you have [pnpm](https://pnpm.io/) install on your system as node package manager
+-   run on development
+
+```bash
+
+pnpm i
+# update .env.sample to .env then update db connection string (DATABASE_URL)  and RABBIT_MQ_URI
+npx prisma migrate deploy
+npx prisma generate
+
+# reload / reopen vscode to restart TS server
+npm run dev # auth api will run on port 4000
+
+```
+
+## API endpoints
+
+-   BASE url: http://localhost:4000/api/auth
+-   Login route: @POST http://localhost:4000/api/auth/login - pass body as `json
+{
+    "identifier": "a@g.com",
+    "password": "1234567"
+} `
+-   Protected route(get logged in user) @GET http://localhost:4000/api/auth/user
 
 ## Developer guide
 
