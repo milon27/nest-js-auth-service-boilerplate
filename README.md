@@ -20,11 +20,12 @@ npm run dev # auth api will run on port 4000
 ## API endpoints
 
 -   BASE url: http://localhost:4000/api/auth
--   Login route: @POST http://localhost:4000/api/auth/login - pass body as `json
+-   Login route: @POST http://localhost:4000/api/auth/login/local - pass body as `json
 {
     "identifier": "a@g.com",
     "password": "1234567"
 } `
+-   Continue with google - @GET http://localhost:4000/api/auth/login/google
 -   Protected route(get logged in user) @GET http://localhost:4000/api/auth/user
 
 ## Developer guide
