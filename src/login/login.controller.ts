@@ -1,12 +1,15 @@
-import { Controller, Post, Req, UseGuards } from "@nestjs/common"
-import { Request } from "express"
-import { LocalAuthGuard } from "src/auth/guard/local.guard"
+import { Controller, Post, Req, Res, UseGuards } from "@nestjs/common"
+import { Request, Response } from "express"
+import { LocalAuthGuard } from "../auth/guard/local.guard"
+import { ACCESS_TOKEN } from "../auth/guard/protected.guard"
 
 @Controller("login")
 export class LoginController {
     @UseGuards(LocalAuthGuard)
     @Post()
-    login(@Req() req: Request) {
-        return { ...req.user }
+    login(@Req() req: Request, @Res() res: Response) {
+        // set cookie
+        if (req?.user !== undefined) res.cookie(ACCESS_TOKEN, req.user[ACCESS_TOKEN])
+        return "{ ...req.user }"
     }
 }

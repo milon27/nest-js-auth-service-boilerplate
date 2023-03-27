@@ -4,7 +4,7 @@ module.exports = {
         jest: true,
         es2021: true,
     },
-    root: true,
+    // root: true,
     extends: [
         "airbnb-base",
         "airbnb-typescript/base",
@@ -20,8 +20,7 @@ module.exports = {
         tsconfigRootDir: __dirname,
     },
     plugins: ["@typescript-eslint", "prettier"],
-    ignorePatterns: ["node_modules", "lib", "dist"],
-    // ignorePatterns: ['.eslintrc.js'],
+    ignorePatterns: ["node_modules", "lib", "dist", ".eslintrc.js"],
     rules: {
         "prettier/prettier": [
             "warn",
@@ -36,5 +35,6 @@ module.exports = {
         "no-underscore-dangle": "off",
         "import/prefer-default-export": "off",
         "class-methods-use-this": "off",
+        "@typescript-eslint/dot-notation": "off",
     },
 }

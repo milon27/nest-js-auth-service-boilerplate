@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from "@nestjs/common"
 import { PassportStrategy } from "@nestjs/passport"
 import { IStrategyOptions, Strategy } from "passport-local"
 import { AuthService } from "../auth.service"
+import { ACCESS_TOKEN } from "../guard/protected.guard"
 
 export const LocalStrategyName = "LOCAL"
 
@@ -19,9 +20,10 @@ export class LocalStrategy extends PassportStrategy(Strategy, LocalStrategyName)
         if (!user) {
             throw new UnauthorizedException()
         }
+
         return {
             ...user,
-            token: this.authService.generateJwtToken(),
+            [ACCESS_TOKEN]: this.authService.generateJwtToken(user),
         }
     }
 }

@@ -1,10 +1,11 @@
 import { Injectable } from "@nestjs/common"
+import { JwtService } from "@nestjs/jwt"
 import { DatabaseService } from "src/database/database.service"
 import { IJwtUser } from "./interface/jwt-user.interface"
 
 @Injectable()
 export class AuthService {
-    constructor(private database: DatabaseService) {}
+    constructor(private database: DatabaseService, private jwtService: JwtService) {}
 
     async validateUser(identifier: string, password: string): Promise<IJwtUser | undefined> {
         const user = await this.database.user.findUnique({
@@ -34,7 +35,11 @@ export class AuthService {
         return undefined
     }
 
-    generateJwtToken() {
-        return "jwt token"
+    generateJwtToken(payload: IJwtUser) {
+        return this.jwtService.sign(payload)
+    }
+
+    verifyJwtToken(token: string) {
+        return this.jwtService.verify<IJwtUser>(token)
     }
 }

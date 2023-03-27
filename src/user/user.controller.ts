@@ -1,6 +1,6 @@
 import { Controller, Get, Req, UseGuards } from "@nestjs/common"
 import { Request } from "express"
-import { ProtectedGuard } from "src/auth/guard/protected.guard"
+import { ProtectedGuard } from "../auth/guard/protected.guard"
 import { UserService } from "./user.service"
 
 @UseGuards(ProtectedGuard)
