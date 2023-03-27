@@ -10,6 +10,6 @@ export class LoginController {
     login(@Req() req: Request, @Res() res: Response) {
         // set cookie
         res.cookie(ACCESS_TOKEN, req.user[ACCESS_TOKEN])
-        return { ...req.user, ACCESS_TOKEN: req.user[ACCESS_TOKEN] }
+        res.send({ ...req.user, [ACCESS_TOKEN]: req.user[ACCESS_TOKEN] })
     }
 }
