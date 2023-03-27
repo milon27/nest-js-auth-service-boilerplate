@@ -35,5 +35,6 @@ module.exports = {
         radix: "off",
         "no-underscore-dangle": "off",
         "import/prefer-default-export": "off",
+        "class-methods-use-this": "off",
     },
 }
