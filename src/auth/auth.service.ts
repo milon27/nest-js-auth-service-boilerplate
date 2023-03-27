@@ -1,27 +1,14 @@
 import { Injectable } from "@nestjs/common"
 import { JwtService } from "@nestjs/jwt"
-import { DatabaseService } from "../database/database.service"
+import { UserService } from "../user/user.service"
 import { IJwtUser } from "./interface/jwt-user.interface"
 
 @Injectable()
 export class AuthService {
-    constructor(private database: DatabaseService, private jwtService: JwtService) {}
+    constructor(private userService: UserService, private jwtService: JwtService) {}
 
     async validateUser(identifier: string, password: string): Promise<IJwtUser | undefined> {
-        const user = await this.database.user.findUnique({
-            where: {
-                email: identifier,
-            },
-            select: {
-                id: true,
-                email: true,
-                role: {
-                    include: {
-                        permissions: true,
-                    },
-                },
-            },
-        })
+        const user = await this.userService.getUserByIdentifier(identifier)
         // todo: check password with bcrypt
         if (!password) {
             return undefined
