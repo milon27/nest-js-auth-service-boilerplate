@@ -20,7 +20,7 @@ module.exports = {
         tsconfigRootDir: __dirname,
     },
     plugins: ["@typescript-eslint", "prettier"],
-    ignorePatterns: ["node_modules", "lib", "dist", ".eslintrc.js"],
+    ignorePatterns: ["node_modules", "lib", "dist", ".eslintrc.js", "test"],
     rules: {
         "prettier/prettier": [
             "warn",
