@@ -1,7 +1,6 @@
 import { Body, Controller, Post, Res } from "@nestjs/common"
 import { Response } from "express"
 import { AuthService } from "../auth/auth.service"
-import { ACCESS_TOKEN } from "../auth/guard/protected.guard"
 import { CreateUserDto } from "../user/dto/create-user.dto"
 import { UserService } from "../user/user.service"
 
@@ -19,12 +18,12 @@ export class RegisterController {
     async registerUser(@Body() body: CreateUserDto, @Res() res: Response) {
         const user = await this.userService.createUser(body)
 
-        const accessToken = this.authService.generateJwtToken(user)
-        // set cookie
-        res.cookie(ACCESS_TOKEN, accessToken)
-        res.send({
-            ...user,
-            [ACCESS_TOKEN]: accessToken,
-        })
+        return this.authService.setCookieAndSendResponse(
+            {
+                id: user.id,
+                role: user.role,
+            },
+            res
+        )
     }
 }

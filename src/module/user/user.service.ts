@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common"
-import { IJwtUser } from "../auth/interface/jwt-user.interface"
+import * as bcrypt from "bcryptjs"
+import Constant from "../../utils/constant/constant"
 import { DatabaseService } from "../database/database.service"
 import { CreateUserDto } from "./dto/create-user.dto"
 
@@ -7,7 +8,7 @@ import { CreateUserDto } from "./dto/create-user.dto"
 export class UserService {
     constructor(private database: DatabaseService) {}
 
-    async getUserById(id: string) {
+    async getloggedInUser(id: string) {
         return this.database.user.findUnique({ where: { id } })
     }
 
@@ -16,9 +17,7 @@ export class UserService {
             where: {
                 email: identifier,
             },
-            select: {
-                id: true,
-                email: true,
+            include: {
                 role: {
                     include: {
                         permissions: true,
@@ -28,43 +27,31 @@ export class UserService {
         })
 
         if (user) {
-            return {
-                id: user.id,
-                role: user.role,
-            } as IJwtUser
+            return user
         }
         return undefined
     }
 
     async createUser(userDto: CreateUserDto) {
-        // todo: hash the password
+        const hashedPassword = await bcrypt.hash(userDto.password, await bcrypt.genSalt(10))
         const user = await this.database.user.create({
             data: {
                 email: userDto.email,
                 fullName: userDto.name,
-                password: userDto.password,
+                password: hashedPassword,
                 role: {
                     connectOrCreate: {
                         create: {
-                            slug: "customer",
-                            title: "Customer",
-                            permissions: {
-                                create: [
-                                    {
-                                        modelName: "test",
-                                    },
-                                ],
-                            },
+                            slug: Constant.DEFAULT_ROLE,
+                            title: Constant.DEFAULT_ROLE,
                         },
                         where: {
-                            slug: "customer",
+                            slug: Constant.DEFAULT_ROLE,
                         },
                     },
                 },
             },
-            select: {
-                id: true,
-                email: true,
+            include: {
                 role: {
                     include: {
                         permissions: true,
@@ -74,10 +61,7 @@ export class UserService {
         })
 
         if (user) {
-            return {
-                id: user.id,
-                role: user.role,
-            } as IJwtUser
+            return user
         }
         return undefined
     }

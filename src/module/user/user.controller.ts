@@ -10,6 +10,9 @@ export class UserController {
 
     @Get()
     loggedInUser(@Req() req: Request) {
-        return this.userService.getUserById(req.user.id)
+        return this.userService.getloggedInUser(req.user.id)
     }
+
+    // todo: update a user (update profile pic/avater, password, email, active status, etc)
+    // todo: add
 }

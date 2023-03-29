@@ -1,7 +1,5 @@
 import { Module } from "@nestjs/common"
-import { RmqModule } from "../rmq/rmq.module"
 import { UserModule } from "../user/user.module"
-import Constant from "../utils/constant/constant"
 import { RegisterController } from "./register.controller"
 
 @Module({

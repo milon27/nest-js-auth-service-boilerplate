@@ -1,17 +1,17 @@
 import { Controller, Get, Post, Req, Res, UseGuards } from "@nestjs/common"
 import { Request, Response } from "express"
+import { AuthService } from "../auth/auth.service"
 import { GoogleAuthGuard } from "../auth/guard/google.guard"
 import { LocalAuthGuard } from "../auth/guard/local.guard"
-import { ACCESS_TOKEN } from "../auth/guard/protected.guard"
 
 @Controller("login")
 export class LoginController {
+    constructor(private authService: AuthService) {}
+
     @UseGuards(LocalAuthGuard)
     @Post("local")
     login(@Req() req: Request, @Res() res: Response) {
-        // set cookie
-        res.cookie(ACCESS_TOKEN, req.user[ACCESS_TOKEN])
-        res.send({ ...req.user, [ACCESS_TOKEN]: req.user[ACCESS_TOKEN] })
+        return this.authService.setCookieAndSendResponse(req.user, res)
     }
 
     @Get("google")
@@ -23,9 +23,6 @@ export class LoginController {
     @Get("google-redirect")
     @UseGuards(GoogleAuthGuard)
     googleAuthRedirect(@Req() req: Request, @Res() res: Response) {
-        // set cookie
-        res.cookie(ACCESS_TOKEN, req.user[ACCESS_TOKEN])
-        // res.send({ ...req.user, [ACCESS_TOKEN]: req.user[ACCESS_TOKEN] })
-        res.redirect("/api/auth/user") // any frontend url maybe dashboard or profile screen, for now just redirecting to a backend protected route
+        return this.authService.setCookieAndSendResponseForSocial(req.user, res)
     }
 }

@@ -2,9 +2,9 @@
 
 ## How to run
 
--   make sure you have [pnpm](https://pnpm.io/) install on your system as node package manager
+-   make sure you have [docker](https://www.docker.com/products/docker-desktop/) and [pnpm](https://pnpm.io/) install on your system as node package manager
 -   run on development
-    -   use mysql db from docker (you should have docker install on your machine) `docker compose up -d `
+    -   use postgres db from docker (you should have docker install on your machine) `docker compose up -d `
     -   install all dependencies and run the app
 
 ```bash
@@ -57,9 +57,10 @@ npm run dev # auth api will run on port 4000
 ### TODO
 
 -   setup swegger for api doc, also maintain postman
+-   api versioning
+-   file upload to s3
 -   setup a prisma exception filter globally
-
----
+-   ***
 
 @author
 [milon27.com](https://milon27.com)
