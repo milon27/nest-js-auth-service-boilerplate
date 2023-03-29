@@ -19,6 +19,14 @@ npm run dev # auth api will run on port 4000
 
 ```
 
+## How to push code
+
+-   setup husky Git hooks `npx husky install`
+-   create new branch `git checkout -b feature-branch`
+-   add files `git add .`
+-   commit files `git commit -m 'message'` [here husky wil check the linting]
+-   push code `git push origin feature-branch`
+
 ## API endpoints
 
 -   BASE url: http://localhost:4000/api/auth
